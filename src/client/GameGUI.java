@@ -20,7 +20,7 @@ public class GameGUI extends Thread {
 	Color white = Color.WHITE;
 	Color black = Color.GREEN;
 
-	Pieces[][] board;
+	Board board;
 
 	public static void main(String[] args) {
 		GameGUI gg = new GameGUI();
@@ -28,7 +28,7 @@ public class GameGUI extends Thread {
 	}
 	
 	public GameGUI() {
-		this.board  = Board.getInitialBoard();
+		this.board  = new Board();
 		// ServerToEngineMessage initialBoardMessage = new ServerToEngineMessage(initialBoard, null, true, 3);
 		
 		mainWindow = new JFrame("Chess Game");

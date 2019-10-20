@@ -1,13 +1,13 @@
 package engine;
 
-import messages.ServerToEngineMessage;;
+import messages.BoardPositionMessage;;
 
 public class Engine extends Thread {
-	ServerToEngineMessage msg;
+	BoardPositionMessage msg;
 	
 	boolean finished;
 	
-	Engine(ServerToEngineMessage msg){
+	Engine(BoardPositionMessage msg){
 		this.msg = msg;
 		finished = false;
 		System.out.println("Started");

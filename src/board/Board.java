@@ -35,9 +35,23 @@ public class Board {
 			Pieces.BlackKing, Pieces.BlackBishop, Pieces.BlackKnight, Pieces.BlackRock
 		}
 	};
+	
+	public Pieces[][] currentBoard; 
 
 	public static Pieces[][] getInitialBoard() {
 		return initialBoard;
+	}
+	
+	public Board () {
+		this.currentBoard = getInitialBoard();
+	}
+	
+	public Pieces[][] getBoard() {
+		return this.currentBoard;
+	}
+	
+	public void setBoard(Pieces[][] board) {
+		this.currentBoard = board;
 	}
 	
 }

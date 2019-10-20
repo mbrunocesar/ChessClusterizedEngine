@@ -13,7 +13,6 @@ public class MainServer extends Thread {
 
 	ServerSocket serverSocket;
 
-	LinkedList<Socket> clientConnections;
 	LinkedList<Socket> engineConnections;
 
 
@@ -22,11 +21,10 @@ public class MainServer extends Thread {
 		serverSocket = new ServerSocket(5000);
 		System.out.println("[DEBUG] Main Server Listening...");
 
-		clientConnections = new LinkedList<Socket>();
 		engineConnections = new LinkedList<Socket>();
 
 		for (int i = 0; i < numberOfEngines; i++) {
-			Socket engineSocket = new Socket("localhost", 3001 + i);
+			Socket engineSocket = new Socket("localhost", 5001 + i);
 			engineConnections.add(engineSocket);
 		}
 
@@ -42,7 +40,6 @@ public class MainServer extends Thread {
 			while (!sigKill) {
 				Socket clientConnection;
 				clientConnection = serverSocket.accept();
-				clientConnections.add(clientConnection);
 				
 				ServerToClientConnection serverConnection = new ServerToClientConnection(clientConnection, this);
 				serverConnection.start();
@@ -52,7 +49,12 @@ public class MainServer extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	public Socket getRandomEngineConnection() {
+		int numberOfEngines = engineConnections.size();
+		int random = (int) Math.floor(Math.random() * numberOfEngines);
+		return engineConnections.get(random);
 	}
 
 }

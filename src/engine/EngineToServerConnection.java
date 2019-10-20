@@ -3,7 +3,7 @@ package engine;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import messages.ServerToEngineMessage;
+import messages.BoardPositionMessage;
 
 public class EngineToServerConnection extends Thread {
 	Socket connection;
@@ -19,11 +19,11 @@ public class EngineToServerConnection extends Thread {
 		
 		ObjectInputStream input;
 		
-		ServerToEngineMessage msg = null;
+		BoardPositionMessage msg = null;
 		try {
 			input = new ObjectInputStream(this.connection.getInputStream());
 
-			msg = (ServerToEngineMessage) input.readObject();
+			msg = (BoardPositionMessage) input.readObject();
 			System.out.println(msg);
 		} catch (Exception e) {
 			System.out.println("[Debug] Empty");

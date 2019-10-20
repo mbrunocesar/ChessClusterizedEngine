@@ -1,5 +1,5 @@
-/engine/
-/server/
 /board/
 /client/
-/launcher/
+/engine/
+/server/
+/messages/

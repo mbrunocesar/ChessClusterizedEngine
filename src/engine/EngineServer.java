@@ -19,7 +19,7 @@ public class EngineServer extends Thread {
 		// Create a Server Socket for the Engine
 		ServerSocket serverSocket;
 		try {
-			serverSocket = new ServerSocket(3000 + instanceNumber);
+			serverSocket = new ServerSocket(5000 + instanceNumber);
 			System.out.println("[DEBUG] Engine Server " + instanceNumber + " Listening...");
 	
 			LinkedList<Socket> engineConnections = new LinkedList<Socket>();
