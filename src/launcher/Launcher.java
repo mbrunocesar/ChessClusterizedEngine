@@ -1,28 +1,40 @@
 package launcher;
 
+import client.GameGUI;
 import engine.EngineServer;
 import server.MainServer;
 
 public class Launcher {
 
+	int numberOfEngines = 8;
+	
 	public static void main(String[] args) {
 		new Launcher();
 	}
 	
 	public Launcher() {
 		try {
-			EngineServer subServer1 = new EngineServer(1);
-			subServer1.start();
-			EngineServer subServer2 = new EngineServer(2);
-			subServer2.start();
+			for (int i = 0; i < numberOfEngines; i++) {
+				EngineServer subServer = new EngineServer(i + 1);
+				subServer.start();
+			}
 			
 			try {
 				Thread.sleep(3000);
-			} catch (InterruptedException ex) {
-				System.err.println("[ERROR] Thread Killed");
-			}
+				System.out.println("[STARTED] Engines");
+			} catch (InterruptedException ex) {}
+
+			MainServer mainServer = new MainServer(numberOfEngines);
+			mainServer.start();
+		
+			try {
+				Thread.sleep(3000);
+				System.out.println("[STARTED] Main Server");
+			} catch (InterruptedException ex) {}
 			
-			MainServer mainServer = new MainServer();
+			GameGUI gameUI = new GameGUI();
+			gameUI.start();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

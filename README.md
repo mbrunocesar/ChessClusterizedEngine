@@ -56,22 +56,28 @@ Do while there's a game
 
 	Client sends his (Maybe Initial) Board to server
 
-	Server Keeps his connection active
+	Server Keeps this connection active
 
 	Server get a pool of engine instances to process the position
 
 	for each engine
+		Engine Keeps this connection active
+
 		Engine get the position
 
 		Engines process
 
 		Engines sends back to Server the result
 
+		Engines closes this server connection
+
 	Server gets all the results
 
 	Server chooses the best continuation
 
 	Server sends back to Client the best result
+
+	Server closes this client connection
 
 
 

@@ -2,6 +2,9 @@ package client;
 
 import javax.swing.JPanel;
 
+import board.Board;
+import board.Pieces;
+
 import javax.swing.JFrame;
 
 import java.awt.Canvas;
@@ -16,7 +19,8 @@ public class GameGUI extends Thread {
 
 	Color white = Color.WHITE;
 	Color black = Color.GREEN;
-	
+
+	Pieces[][] board;
 
 	public static void main(String[] args) {
 		GameGUI gg = new GameGUI();
@@ -24,6 +28,9 @@ public class GameGUI extends Thread {
 	}
 	
 	public GameGUI() {
+		this.board  = Board.getInitialBoard();
+		// ServerToEngineMessage initialBoardMessage = new ServerToEngineMessage(initialBoard, null, true, 3);
+		
 		mainWindow = new JFrame("Chess Game");
 		squares = new Canvas[8][8];
 		

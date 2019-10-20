@@ -1,15 +1,11 @@
 package server;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import java.util.LinkedList;
 
-import board.Board;
-import board.Pieces;
-import messages.ServerToEngineMessage;
 
 public class MainServer extends Thread {
 	
@@ -21,7 +17,7 @@ public class MainServer extends Thread {
 	LinkedList<Socket> engineConnections;
 
 
-	public MainServer() throws IOException, ClassNotFoundException {
+	public MainServer(int numberOfEngines) throws IOException, ClassNotFoundException {
 		// Create a Server Socket for the Engine
 		serverSocket = new ServerSocket(5000);
 		System.out.println("[DEBUG] Main Server Listening...");
@@ -29,24 +25,14 @@ public class MainServer extends Thread {
 		clientConnections = new LinkedList<Socket>();
 		engineConnections = new LinkedList<Socket>();
 
-		// Move this logic to client side
-		Pieces[][] initialBoard = Board.getInitialBoard();
-		ServerToEngineMessage initialBoardMessage = new ServerToEngineMessage(initialBoard, null, true, 3);
-
-		
-		Socket engineSocket = new Socket("localhost", 3001);
-        ObjectOutputStream os = new ObjectOutputStream(engineSocket.getOutputStream());
-		os.writeObject(initialBoardMessage);
-
-		// Run Main Engine connector
-		while (!sigKill) {
-			Socket serverConnection = serverSocket.accept();
-			clientConnections.add(serverConnection);
-
-			
+		for (int i = 0; i < numberOfEngines; i++) {
+			Socket engineSocket = new Socket("localhost", 3001 + i);
+			engineConnections.add(engineSocket);
 		}
 
-		engineSocket.close();
+		// ObjectOutputStream os = new ObjectOutputStream(engineSocket.getOutputStream());
+		// os.writeObject(initialBoardMessage);
+		// engineSocket.close();
 	}
 
 	@Override
