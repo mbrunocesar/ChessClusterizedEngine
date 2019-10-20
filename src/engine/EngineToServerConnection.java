@@ -5,11 +5,11 @@ import java.net.Socket;
 
 import messages.ServerToEngineMessage;
 
-public class EngineConnection extends Thread {
+public class EngineToServerConnection extends Thread {
 	Socket connection;
 	Engine engine;
 	
-	EngineConnection(Socket serverConnection){
+	EngineToServerConnection(Socket serverConnection){
 		this.connection = serverConnection;
 	}
 

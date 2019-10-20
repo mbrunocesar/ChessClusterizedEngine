@@ -25,14 +25,14 @@ public class EngineServer extends Thread {
 			LinkedList<Socket> engineConnections = new LinkedList<Socket>();
 			
 			// Prepare Engine Thread through Engine Connection
-			EngineConnection engine;
+			EngineToServerConnection engine;
 			
 			// Run Main Engine connector
 			while (!sigKill) {
 				Socket serverConnection = serverSocket.accept();
 				engineConnections.add(serverConnection);
 	
-				engine = new EngineConnection(serverConnection);
+				engine = new EngineToServerConnection(serverConnection);
 				engine.start();
 			}
 	

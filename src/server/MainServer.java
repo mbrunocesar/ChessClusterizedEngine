@@ -89,7 +89,7 @@ public class MainServer extends Thread {
 				clientConnection = serverSocket.accept();
 				clientConnections.add(clientConnection);
 				
-				ServerConnection serverConnection = new ServerConnection(clientConnection);
+				ClientToServerConnection serverConnection = new ClientToServerConnection(clientConnection);
 				serverConnection.start();
 			}
 
