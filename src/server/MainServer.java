@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import java.util.LinkedList;
 
+import board.Board;
 import board.Pieces;
 import messages.ServerToEngineMessage;
 
@@ -27,41 +28,9 @@ public class MainServer extends Thread {
 
 		clientConnections = new LinkedList<Socket>();
 		engineConnections = new LinkedList<Socket>();
-		
-		Pieces[][] initialBoard = {
-				{
-					Pieces.WhiteRock, Pieces.WhiteKnight, Pieces.WhiteBishop, Pieces.WhiteQueen,
-					Pieces.WhiteKing, Pieces.WhiteBishop, Pieces.WhiteKnight, Pieces.WhiteRock
-				},
-				{
-					Pieces.WhitePawn, Pieces.WhitePawn, Pieces.WhitePawn, Pieces.WhitePawn,
-					Pieces.WhitePawn, Pieces.WhitePawn, Pieces.WhitePawn, Pieces.WhitePawn
-				},
-				{
-					Pieces.Empty, Pieces.Empty, Pieces.Empty, Pieces.Empty,
-					Pieces.Empty, Pieces.Empty, Pieces.Empty, Pieces.Empty
-				},
-				{
-					Pieces.Empty, Pieces.Empty, Pieces.Empty, Pieces.Empty,
-					Pieces.Empty, Pieces.Empty, Pieces.Empty, Pieces.Empty
-				},
-				{
-					Pieces.Empty, Pieces.Empty, Pieces.Empty, Pieces.Empty,
-					Pieces.Empty, Pieces.Empty, Pieces.Empty, Pieces.Empty
-				},
-				{
-					Pieces.Empty, Pieces.Empty, Pieces.Empty, Pieces.Empty,
-					Pieces.Empty, Pieces.Empty, Pieces.Empty, Pieces.Empty
-				},
-				{
-					Pieces.BlackPawn, Pieces.BlackPawn, Pieces.BlackPawn, Pieces.BlackPawn,
-					Pieces.BlackPawn, Pieces.BlackPawn, Pieces.BlackPawn, Pieces.BlackPawn
-				},
-				{
-					Pieces.BlackRock, Pieces.BlackKnight, Pieces.BlackBishop, Pieces.BlackQueen,
-					Pieces.BlackKing, Pieces.BlackBishop, Pieces.BlackKnight, Pieces.BlackRock
-				}
-			};
+
+		// Move this logic to client side
+		Pieces[][] initialBoard = Board.getInitialBoard();
 		ServerToEngineMessage initialBoardMessage = new ServerToEngineMessage(initialBoard, null, true, 3);
 
 		
@@ -89,7 +58,7 @@ public class MainServer extends Thread {
 				clientConnection = serverSocket.accept();
 				clientConnections.add(clientConnection);
 				
-				ClientToServerConnection serverConnection = new ClientToServerConnection(clientConnection);
+				ServerToClientConnection serverConnection = new ServerToClientConnection(clientConnection, this);
 				serverConnection.start();
 			}
 

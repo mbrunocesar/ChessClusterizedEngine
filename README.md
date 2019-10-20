@@ -47,3 +47,31 @@ Engine Core:
 - Core
 
 
+----------------------------------
+
+Desired Flow:
+
+
+Do while there's a game
+
+	Client sends his (Maybe Initial) Board to server
+
+	Server Keeps his connection active
+
+	Server get a pool of engine instances to process the position
+
+	for each engine
+		Engine get the position
+
+		Engines process
+
+		Engines sends back to Server the result
+
+	Server gets all the results
+
+	Server chooses the best continuation
+
+	Server sends back to Client the best result
+
+
+
