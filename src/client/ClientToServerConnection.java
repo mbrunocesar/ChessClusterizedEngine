@@ -1,6 +1,5 @@
 package client;
 
-import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
@@ -23,9 +22,9 @@ public class ClientToServerConnection extends Thread {
 		try {
 			Socket socketToMainServer = new Socket("localhost", 5000);
 			this.connection = socketToMainServer;
-			
+
 			BoardPositionMessage message = new BoardPositionMessage(this.board, "e2-e4", true, 3);
-			
+
 			ObjectOutputStream os = new ObjectOutputStream(socketToMainServer.getOutputStream());
 			os.writeObject(message);
 			// engineSocket.close();

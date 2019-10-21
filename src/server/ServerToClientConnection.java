@@ -1,6 +1,7 @@
 package server;
 
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import messages.BoardPositionMessage;
@@ -9,7 +10,7 @@ public class ServerToClientConnection extends Thread {
 	Socket clientConnection;
 	Socket engineConnection;
 	MainServer mainReference;
-	
+
 	public ServerToClientConnection(Socket serverConnection, MainServer reference) {
 		this.clientConnection = serverConnection;
 		this.mainReference = reference;
@@ -21,17 +22,20 @@ public class ServerToClientConnection extends Thread {
 
 		ObjectInputStream input;
 		
-		BoardPositionMessage msg = null;
+		BoardPositionMessage message = null;
 		try {
 			input = new ObjectInputStream(this.clientConnection.getInputStream());
 
-			msg = (BoardPositionMessage) input.readObject();
+			message = (BoardPositionMessage) input.readObject();
 			System.out.println("[Debug] Server received Client Board");
+		
+			
+			ObjectOutputStream os = new ObjectOutputStream(engineConnection.getOutputStream());
+			os.writeObject(message);
 		} catch (Exception e) {
 			System.out.println("[Debug] Empty");
 		}
-		
-		
+
 	}
 
 	@Override

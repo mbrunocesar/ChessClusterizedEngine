@@ -27,4 +27,8 @@ public class Engine extends Thread {
 		}
 		finished = true;
 	}
+	
+	public void pseudoSuggestMove() {
+		
+	}
 }

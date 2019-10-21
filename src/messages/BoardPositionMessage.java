@@ -30,5 +30,17 @@ public class BoardPositionMessage implements GenericMessage, Serializable {
 		
 		currentEvaluation = lastEvaluation;
 	}
+	
+	public Pieces[][] getCurrentBoard() {
+		return currentBoard;
+	}
+	
+	public String getMove() {
+		return lastMove;
+	}
+	
+	public boolean isWhite() {
+		return isWhiteTurn;
+	}
 
 }
